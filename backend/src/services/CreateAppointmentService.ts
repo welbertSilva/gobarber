@@ -5,12 +5,12 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 
 interface RequestDTO {
-    provider: string;
+    provider_id: string;
     date: Date;
 }
 
 class CreateAppointmentService {
-    public async execute({ provider, date }:RequestDTO): Promise<Appointment> {
+    public async execute({ provider_id, date }:RequestDTO): Promise<Appointment> {
         const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
         const appointmentDate = startOfHour(date); /**Convertendo a data para data única */
@@ -22,7 +22,7 @@ class CreateAppointmentService {
 
     /**Chamando metodo create dentro do respositorio  passando os paramentros já tratados acima*/
     const appointment = appointmentsRepository.create({
-        provider,
+        provider_id,
         date: appointmentDate,
      });
      await appointmentsRepository.save(appointment);
