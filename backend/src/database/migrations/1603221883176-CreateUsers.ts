@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUsers1603221883176 implements MigrationInterface {
 
