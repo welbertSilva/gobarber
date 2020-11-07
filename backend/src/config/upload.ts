@@ -1,9 +1,15 @@
+import path from 'path';
+import crypto from 'crypto';
 import multer from 'multer';
 
 export default {
     storage: multer.diskStorage({
-        destination:'',
-        filename:'',
-    })
+        destination: path.resolve(__dirname, '..','..','tmp'),
+        filename(request, file, callback){
+            const fileHash = crypto.randomBytes(10).toString('hex'); // criando um hash para o nome do arquivo
+            const fileName = `${fileHash}-${file.originalname}`;
 
+            return callback(null, fileName);
+        },
+    }),
 }
