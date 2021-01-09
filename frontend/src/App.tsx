@@ -1,6 +1,6 @@
 import React from 'react';
 import GlobalStyle from './styles/Global';
-import Signin from './pages/Sigin';
+import Signin from './pages/Signin';
 
 const App: React.FC = () => (
   <>
