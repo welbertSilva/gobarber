@@ -26,6 +26,9 @@
     ],
     "rules": {
         "arrow-body-style": 0,
+        "arrow-parens": ["error", "as-needed"],
+        /* "comma-dangle": ["error", "never"], */
+        "object-curly-newline": ["error", {"multiline": true}],
 	    "prettier/prettier": 0,
 	    "react-hooks/rules-of-hooks": "error",
 	    "react-hooks/exhaustive-deps": "warn",
