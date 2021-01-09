@@ -26,7 +26,7 @@
     ],
     "rules": {
         "arrow-body-style": 0,
-	    "prettier/prettier": "error",
+	    "prettier/prettier": 0,
 	    "react-hooks/rules-of-hooks": "error",
 	    "react-hooks/exhaustive-deps": "warn",
 	    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
@@ -34,8 +34,10 @@
         "import/prefer-default-export": "off",
         "no-use-before-define": "off",
         "react/jsx-one-expression-per-line": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/prop-types": "off",
 	    "camelcase": "off",
-	    "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/ban-types": "off",
 	    "import/extensions": [
 	        "error",
 	        "ignorePackages",
