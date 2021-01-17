@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useContext } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -8,10 +8,22 @@ import logoImg from '../../assets/logo.svg';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { AutoContext } from '../../context/AuthContext';
+
+interface signInFormData {
+  email: string;
+  password: string;
+}
+
+interface signIncrendential {
+  email: string;
+  password: string;
+}
 
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const handleSubmit = useCallback(async(data: object) => {
+  const { signIn } = useContext(AutoContext);
+  const handleSubmit = useCallback(async(data: signInFormData) => {
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
@@ -19,11 +31,16 @@ const Signin: React.FC = () => {
         password: Yup.string().required('Senha obrigatória'),
       });
       await schema.validate(data, { abortEarly: false });
+      signIn({
+        email: data.email,
+        password: data.password,
+
+      });
     } catch (err) {
       const errors = getValidationErrors(err);
       formRef.current?.setErrors(errors);
     }
-  },[]);
+  },[signIn]);
   return (
     <Container>
       <Content>
