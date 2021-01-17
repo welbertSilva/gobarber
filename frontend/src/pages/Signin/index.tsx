@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useContext } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import logoImg from '../../assets/logo.svg';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { AutoContext } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 interface signInFormData {
   email: string;
@@ -22,7 +22,7 @@ interface signIncrendential {
 
 const Signin: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { signIn } = useContext(AutoContext);
+  const { signIn } = useAuth();
   const handleSubmit = useCallback(async(data: signInFormData) => {
     try {
       formRef.current?.setErrors({});
