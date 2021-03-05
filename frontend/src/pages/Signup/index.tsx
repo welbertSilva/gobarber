@@ -13,7 +13,7 @@ import { Container, Content, Background, AnimationContainer } from './style';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useToast } from '../../hooks/Toast';
 
-interface SignUpData{
+interface SignUpFormData{
   name: string,
   email: string,
   password: string,
@@ -23,7 +23,7 @@ const Signup: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const history = useHistory();
-  const handleSubmit = useCallback(async(data: SignUpData) => {
+  const handleSubmit = useCallback(async(data: SignUpFormData) => {
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({

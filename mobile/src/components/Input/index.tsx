@@ -18,7 +18,7 @@ interface InputRef {
 }
   const Input: React.ForwardRefRenderFunction<InputRef,InputProps> = ({ name, icon, ...rest }, ref) => {
   const inputElementRef = useRef<any>(null);
-  const {registerField, defaultValue, fieldName, error } = useField(name);
+  const {registerField, defaultValue, fieldName, error} = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
 
   const[isFocused, setIsFocused] = useState(false);
@@ -59,8 +59,13 @@ interface InputRef {
     })
   },[fieldName, inputValueRef]);
    return (
-    <Container isFocused={isFocused}>
-      <Icon name={icon} size={20} color={isFocused || isField ? '#ff9000' : '#666360'}/>
+    <Container isFocused={isFocused} isErrored={ !!error}>
+      <Icon
+        name={icon}
+        size={20}
+        color={isFocused || isField ? '#ff9000' : '#666360'}
+      />
+
       <TextInput
         ref={inputElementRef}
         keyboardAppearance='dark'
