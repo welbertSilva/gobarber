@@ -21,6 +21,8 @@ import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
 import logoImg from '../../assets/logo.png';
 
+import api from '../../services/api';
+
 import {
   Container,
   Title,
@@ -38,21 +40,27 @@ const SignUp: React.FC = () => {
   const  formRef = useRef<FormHandles>(null);
   const  emailInputRef = useRef<TextInput>(null);
   const  passwordInputRef = useRef<TextInput>(null);
+
   const handleSignUp = useCallback(async(data: SignUpFormData) => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
-          name: Yup.string().required('Campo obrigatório'),
-          email: Yup.string().required('Campo obrigatório').email('Email inválido'),
-          password: Yup.string().required('Campo obrigatório').min(6,'Minímo 6 digitos'),
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string().required('Email obrigatório').email('Email inválido'),
+          password: Yup.string().min(6,'Minímo 6 digitos'),
         });
         await schema.validate(data, { abortEarly: false });
+        /* Chama a requisição de cadastro de usuários passado os dados através do data*/
+        await api.post('/users', data);
 
-        /* Chama a requisição de cadastro de usuários passado os dados através do data
-        await api.post('/users', data);*/
-        /* Mostra a mensagem de cadatrado com sucesso no toast */
-       /* Redireciona para página de logon após o cadastramento
-        history.push('/');*/
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer login na aplicação.',
+        );
+
+        /* Redireciona para página de logon após o cadastramento*/
+        navigation.navigate('SignIn');
+
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -60,13 +68,13 @@ const SignUp: React.FC = () => {
 
           return;
         }
+
         Alert.alert(
-          'Erro de autenticação',
-          'Ocorreu um erro ao tentar fazer login, cheque as crendenciais.',
+          'Erro no cadastro',
+          'Ocorreu um erro ao tentar fazer cadastro, tente novamente.',
         );
       }
     },[]);
-
 
   return (
     <>
