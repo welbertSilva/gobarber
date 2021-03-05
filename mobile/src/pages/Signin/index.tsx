@@ -19,6 +19,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useAuth } from '../../hooks/Auth'
 
 import logoImg from '../../assets/logo.png';
 
@@ -38,6 +39,7 @@ interface signInFormData {
 
 const SignIn: React.FC = () => {
   const  navigation = useNavigation();
+  const { signIn } = useAuth();
   const  formRef = useRef<FormHandles>(null);
   const  passwordInputRef = useRef<TextInput>(null);
 
@@ -50,10 +52,10 @@ const SignIn: React.FC = () => {
         });
         await schema.validate(data, { abortEarly: false });
 
-        // await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
 
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -67,7 +69,7 @@ const SignIn: React.FC = () => {
           'Ocorreu um erro ao tentar fazer login, cheque as crendenciais.',
         );
       }
-    },[]);
+    },[signIn]);
 
   return (
     <>
