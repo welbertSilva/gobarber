@@ -12,7 +12,7 @@ interface tokenPayLoad{
 export default function ensureAuthenticated(request:Request, response:Response, next:NextFunction):void{
     const authHeader = request.headers.authorization;
     if (!authHeader) {
-        throw new AppError('JWT is missing.', 401);
+        throw new AppError('JWT is missing.');
     }
     // Formato do token = Bearer fdfsçlfksslfk
     
@@ -28,6 +28,6 @@ export default function ensureAuthenticated(request:Request, response:Response, 
         return next();
 
     } catch (error) {
-        throw new AppError('Invalid JWT token', 401);
+        throw new AppError('Invalid JWT token');
     }
 }
